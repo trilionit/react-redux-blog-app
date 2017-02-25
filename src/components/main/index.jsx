@@ -2,13 +2,17 @@ import React, {Component} from 'react';
 import ViewPosts from './posts/index.jsx';
 import FormComponent from './form/index.jsx';
 class Main extends Component{
+	
+$.get("/", function(data){
 	constructor(){
 		super();
 		this.state={
-			title:"Initial Title",
-			story:"Initial Story"
+			blogPost:data
 		}
-	}	
+	}
+})
+		
+		
 receivePost(blogPost){
 	this.setState({blogPost})
 }
@@ -19,7 +23,7 @@ receivePost(blogPost){
 		return(
 		<div className="main-body">
 			<div className="main-container">
-			  <ViewPosts title={this.state.title} />
+			  <ViewPosts blogPost={this.state.blogPost} />
 			  <FormComponent receivePost={this.receivePost.bind(this)} />
 			</div>
 		</div>

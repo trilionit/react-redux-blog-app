@@ -28,7 +28,7 @@ class BlogPosts extends Component{
 	// 	});
 	
 	render(){
-		console.log("Rendered Props ",this.props.title);
+		console.log("Rendered Props ",this.props.blogPost);
 		return(
 		<div className="read-right" id="read-text">
 			<img src="images/place-holder.jpg"  alt="place-holder" />
