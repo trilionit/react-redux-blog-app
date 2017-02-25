@@ -2,21 +2,24 @@ import React, {Component} from 'react';
 // this is where my post magic will appear
 class FormContainer extends Component{
 
-submitForm(event){
-	event.preventDefault();
-		let blogPost ={
-			title:this.input.value,
-			story:this.textarea.value
-		}
+
+
+	submitForm(event){
+		event.preventDefault();
+			let blogPost ={
+				title:this.input.value,
+				story:this.textarea.value
+			}
 		//send to db
-		$.post("/blog/posts", blogPost, function(data){
-			console.log("-----");
-			console.log(data);
-		})
-	this.setState({blogPost});	
+			$.post("/blog/posts", blogPost, function(data){
+
+			})
+			this.props.receivePost(blogPost)
 	}
 
+
 	render(){
+
 		return(
 		<div className="read-right" id="read-text">
 			<form onSubmit={this.submitForm.bind(this)} id="post-blog">

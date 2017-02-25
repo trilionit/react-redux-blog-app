@@ -6,7 +6,7 @@ class FormComponent extends Component{
 		return(
 			<div className="posts-container">
 			  <TitleBox />
-			  <FormContainer />
+			  <FormContainer receivePost={this.props.receivePost} />
 			</div>
 			)
 	}
