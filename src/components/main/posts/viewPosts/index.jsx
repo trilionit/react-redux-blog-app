@@ -3,40 +3,21 @@ import React, {Component} from 'react';
 //import {connect} from 'react-redux';
 // this is where my post magic will appear
 class BlogPosts extends Component{
-	// constructor(){
-	// 	super();
-	// 	this.state={
-	// 		title:"Initial Title",
-	// 		story:"initial Story Line goes here"
-	// 	}
-	// 	//this.createPostItems=this.createPostItems.bind(this);
-	// }
-	// createPostItems(){
-	// 	let blogPost=this.props.blogPost
-	// 	this.setState({blogPost});
-	// 	console.log("Props for ")
-	// 	console.log(blogPost);
-	// 	}
-	// 	return this.props.blogPost.map((blog) =>{
-	
-	// 		return(
-	// 			<li key={blog.title}>
-	// 				<h3>{blog.title}</h3>
-	// 				<span>{blog.story}</span>
-	// 			</li>
-	// 			);
-	// 	});
-	
+
 	render(){
-		console.log("Rendered Props ",this.props.blogPost);
+	let newPosts = this.props.blogData;
+	let listItems = newPosts.map((ls)=>
+		<li key={ls.id}>
+			<h3>{ls.title}</h3>
+			<span>{ls.story} edit</span>
+		</li>);
+		console.log("Rendered Props ",this.props.blogData);
 		return(
 		<div className="read-right" id="read-text">
 			<img src="images/place-holder.jpg"  alt="place-holder" />
 			<div id="black-board">
 				<ul id="story-board">
-					<li>
-						
-					</li>
+					{listItems}
 				</ul>
 			</div>
 		</div>

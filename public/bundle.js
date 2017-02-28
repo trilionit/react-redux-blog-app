@@ -65,7 +65,7 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _index = __webpack_require__(/*! ./reducers/index.jsx */ 212);
+	var _index = __webpack_require__(/*! ./reducers/index.jsx */ 220);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
@@ -22942,7 +22942,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	__webpack_require__(/*! ./css/style.css */ 211);
+	__webpack_require__(/*! ./css/style.css */ 219);
 	
 	var App = function (_Component) {
 		_inherits(App, _Component);
@@ -23154,11 +23154,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(/*! ./posts/index.jsx */ 214);
+	var _index = __webpack_require__(/*! ./posts/index.jsx */ 211);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _index3 = __webpack_require__(/*! ./form/index.jsx */ 219);
+	var _index3 = __webpack_require__(/*! ./form/index.jsx */ 216);
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
@@ -23179,30 +23179,38 @@
 			var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this));
 	
 			_this.state = {
-				title: "Initial Title",
-				story: "Initial Story"
+				blogData: []
 			};
+	
 			return _this;
 		}
 	
 		_createClass(Main, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				$.get("/posts", function (blogData) {
+					this.setState({ blogData: blogData });
+				}.bind(this));
+			}
+		}, {
 			key: 'receivePost',
 			value: function receivePost(blogPost) {
-				this.setState({ blogPost: blogPost });
+				var newArr = this.state.blogData.concat([blogPost]);
+				this.setState({ blogData: newArr });
 			}
 			//console.log(this.state.viewPost);
 	
 		}, {
 			key: 'render',
 			value: function render() {
-	
+				//console.log(this.state.blogPost);	
 				return _react2.default.createElement(
 					'div',
 					{ className: 'main-body' },
 					_react2.default.createElement(
 						'div',
 						{ className: 'main-container' },
-						_react2.default.createElement(_index2.default, { title: this.state.title }),
+						_react2.default.createElement(_index2.default, { blogData: this.state.blogData }),
 						_react2.default.createElement(_index4.default, { receivePost: this.receivePost.bind(this) })
 					)
 				);
@@ -23216,81 +23224,6 @@
 
 /***/ },
 /* 211 */
-/*!***************************!*\
-  !*** ./src/css/style.css ***!
-  \***************************/
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-	module.exports = {"container":"style__container___1KoiK","logo":"style__logo___3yim3","main-body":"style__main-body___jlwOx","main-left":"style__main-left___38ePd","read-container":"style__read-container___1BFxv","read-left":"style__read-left___7nvK6","read-date-placeholder":"style__read-date-placeholder___1PA7D","small-screens":"style__small-screens___lo33a","read-comment-placeholder":"style__read-comment-placeholder___E-T0I","read-right":"style__read-right___o2a8Y","main-right":"style__main-right___3dVUP","search-container":"style__search-container___27gPx","search-box":"style__search-box___186ae","featured":"style__featured___3BVlP","featured-place-holder":"style__featured-place-holder___3f0Gp","featured-text":"style__featured-text___3iLa6","blog-post":"style__blog-post___32rcF","input":"style__input___3yb_A","textarea":"style__textarea___2WAqb","response":"style__response___2NIJP","error":"style__error___3n-vf","textarea-error":"style__textarea-error___1f4Cu"};
-
-/***/ },
-/* 212 */
-/*!********************************!*\
-  !*** ./src/reducers/index.jsx ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	
-	var _redux = __webpack_require__(/*! redux */ 159);
-	
-	var _blogPosts = __webpack_require__(/*! ./blogPosts.jsx */ 213);
-	
-	var _blogPosts2 = _interopRequireDefault(_blogPosts);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var allReducers = (0, _redux.combineReducers)({
-		posts: _blogPosts2.default
-	});
-	
-	exports.default = allReducers;
-
-/***/ },
-/* 213 */
-/*!************************************!*\
-  !*** ./src/reducers/blogPosts.jsx ***!
-  \************************************/
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  //in future this should be returned from the server db
-	  return [{
-	    id: 1,
-	    title: "MY FIRST BLOG POST",
-	    story: "Hello Post"
-	  }, {
-	    id: 2,
-	    title: "MY SECOND BLOG POST",
-	    story: "This should post at the top of the first blog post"
-	  }, {
-	    id: 3,
-	    title: "MY THIRD BLOG POST",
-	    story: "This post should again display at the top of the list"
-	  }, {
-	    id: 4,
-	    title: "MY FINAL POST",
-	    story: "This post should again display at the top of the list. This should work too."
-	  }, {
-	    id: 5,
-	    title: "MY  POST",
-	    story: "This post should again display. This should work too."
-	  }];
-	};
-
-/***/ },
-/* 214 */
 /*!*********************************************!*\
   !*** ./src/components/main/posts/index.jsx ***!
   \*********************************************/
@@ -23308,11 +23241,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(/*! ./left/index.jsx */ 215);
+	var _index = __webpack_require__(/*! ./left/index.jsx */ 212);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _index3 = __webpack_require__(/*! ./viewPosts/index.jsx */ 218);
+	var _index3 = __webpack_require__(/*! ./viewPosts/index.jsx */ 215);
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
@@ -23336,12 +23269,12 @@
 		_createClass(ViewPosts, [{
 			key: 'render',
 			value: function render() {
-				console.log("initial props ", this.props.title);
+	
 				return _react2.default.createElement(
 					'div',
 					{ className: 'posts-container' },
 					_react2.default.createElement(_index2.default, null),
-					_react2.default.createElement(_index4.default, { title: this.props.title })
+					_react2.default.createElement(_index4.default, { blogData: this.props.blogData })
 				);
 			}
 		}]);
@@ -23352,7 +23285,7 @@
 	exports.default = ViewPosts;
 
 /***/ },
-/* 215 */
+/* 212 */
 /*!**************************************************!*\
   !*** ./src/components/main/posts/left/index.jsx ***!
   \**************************************************/
@@ -23370,11 +23303,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _date = __webpack_require__(/*! ./date.jsx */ 216);
+	var _date = __webpack_require__(/*! ./date.jsx */ 213);
 	
 	var _date2 = _interopRequireDefault(_date);
 	
-	var _postCount = __webpack_require__(/*! ./postCount.jsx */ 217);
+	var _postCount = __webpack_require__(/*! ./postCount.jsx */ 214);
 	
 	var _postCount2 = _interopRequireDefault(_postCount);
 	
@@ -23417,7 +23350,7 @@
 	exports.default = TopLeft;
 
 /***/ },
-/* 216 */
+/* 213 */
 /*!*************************************************!*\
   !*** ./src/components/main/posts/left/date.jsx ***!
   \*************************************************/
@@ -23489,7 +23422,7 @@
 	exports.default = ListDate;
 
 /***/ },
-/* 217 */
+/* 214 */
 /*!******************************************************!*\
   !*** ./src/components/main/posts/left/postCount.jsx ***!
   \******************************************************/
@@ -23556,7 +23489,7 @@
 	exports.default = PostCount;
 
 /***/ },
-/* 218 */
+/* 215 */
 /*!*******************************************************!*\
   !*** ./src/components/main/posts/viewPosts/index.jsx ***!
   \*******************************************************/
@@ -23596,33 +23529,25 @@
 	
 		_createClass(BlogPosts, [{
 			key: "render",
-	
-			// constructor(){
-			// 	super();
-			// 	this.state={
-			// 		title:"Initial Title",
-			// 		story:"initial Story Line goes here"
-			// 	}
-			// 	//this.createPostItems=this.createPostItems.bind(this);
-			// }
-			// createPostItems(){
-			// 	let blogPost=this.props.blogPost
-			// 	this.setState({blogPost});
-			// 	console.log("Props for ")
-			// 	console.log(blogPost);
-			// 	}
-			// 	return this.props.blogPost.map((blog) =>{
-	
-			// 		return(
-			// 			<li key={blog.title}>
-			// 				<h3>{blog.title}</h3>
-			// 				<span>{blog.story}</span>
-			// 			</li>
-			// 			);
-			// 	});
-	
 			value: function render() {
-				console.log("Rendered Props ", this.props.title);
+				var newPosts = this.props.blogData;
+				var listItems = newPosts.map(function (ls) {
+					return _react2.default.createElement(
+						"li",
+						{ key: ls.id },
+						_react2.default.createElement(
+							"h3",
+							null,
+							ls.title
+						),
+						_react2.default.createElement(
+							"span",
+							null,
+							ls.story
+						)
+					);
+				});
+				console.log("Rendered Props ", this.props.blogData);
 				return _react2.default.createElement(
 					"div",
 					{ className: "read-right", id: "read-text" },
@@ -23633,7 +23558,7 @@
 						_react2.default.createElement(
 							"ul",
 							{ id: "story-board" },
-							_react2.default.createElement("li", null)
+							listItems
 						)
 					)
 				);
@@ -23653,7 +23578,7 @@
 	exports.default = BlogPosts;
 
 /***/ },
-/* 219 */
+/* 216 */
 /*!********************************************!*\
   !*** ./src/components/main/form/index.jsx ***!
   \********************************************/
@@ -23671,11 +23596,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(/*! ./left/index.jsx */ 220);
+	var _index = __webpack_require__(/*! ./left/index.jsx */ 217);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _index3 = __webpack_require__(/*! ./FormContainer/index.jsx */ 221);
+	var _index3 = __webpack_require__(/*! ./FormContainer/index.jsx */ 218);
 	
 	var _index4 = _interopRequireDefault(_index3);
 	
@@ -23714,7 +23639,7 @@
 	exports.default = FormComponent;
 
 /***/ },
-/* 220 */
+/* 217 */
 /*!*************************************************!*\
   !*** ./src/components/main/form/left/index.jsx ***!
   \*************************************************/
@@ -23796,7 +23721,7 @@
 	exports.default = TitleBox;
 
 /***/ },
-/* 221 */
+/* 218 */
 /*!**********************************************************!*\
   !*** ./src/components/main/form/FormContainer/index.jsx ***!
   \**********************************************************/
@@ -23826,10 +23751,15 @@
 	var FormContainer = function (_Component) {
 		_inherits(FormContainer, _Component);
 	
-		function FormContainer() {
+		function FormContainer(props) {
 			_classCallCheck(this, FormContainer);
 	
-			return _possibleConstructorReturn(this, (FormContainer.__proto__ || Object.getPrototypeOf(FormContainer)).apply(this, arguments));
+			var _this = _possibleConstructorReturn(this, (FormContainer.__proto__ || Object.getPrototypeOf(FormContainer)).call(this, props));
+	
+			_this.state = {
+				loading: false
+			};
+			return _this;
 		}
 	
 		_createClass(FormContainer, [{
@@ -23839,10 +23769,15 @@
 				var blogPost = {
 					title: this.input.value,
 					story: this.textarea.value
+	
 				};
+	
 				//send to db
-				$.post("/blog/posts", blogPost, function (data) {});
-				this.props.receivePost(blogPost);
+				this.setState({ loading: true });
+				$.post("/blog/posts", blogPost, function (data) {
+					this.props.receivePost(data);
+					this.setState({ loading: false });
+				}.bind(this));
 			}
 		}, {
 			key: "render",
@@ -23852,7 +23787,7 @@
 				return _react2.default.createElement(
 					"div",
 					{ className: "read-right", id: "read-text" },
-					_react2.default.createElement(
+					this.state.loading ? _react2.default.createElement("img", { src: "https://mir-s3-cdn-cf.behance.net/project_modules/disp/cd514331234507.564a1d2324e4e.gif" }) : _react2.default.createElement(
 						"form",
 						{ onSubmit: this.submitForm.bind(this), id: "post-blog" },
 						_react2.default.createElement(
@@ -23877,6 +23812,81 @@
 	}(_react.Component);
 	
 	exports.default = FormContainer;
+
+/***/ },
+/* 219 */
+/*!***************************!*\
+  !*** ./src/css/style.css ***!
+  \***************************/
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"container":"style__container___1KoiK","logo":"style__logo___3yim3","main-body":"style__main-body___jlwOx","main-left":"style__main-left___38ePd","read-container":"style__read-container___1BFxv","read-left":"style__read-left___7nvK6","read-date-placeholder":"style__read-date-placeholder___1PA7D","small-screens":"style__small-screens___lo33a","read-comment-placeholder":"style__read-comment-placeholder___E-T0I","read-right":"style__read-right___o2a8Y","main-right":"style__main-right___3dVUP","search-container":"style__search-container___27gPx","search-box":"style__search-box___186ae","featured":"style__featured___3BVlP","featured-place-holder":"style__featured-place-holder___3f0Gp","featured-text":"style__featured-text___3iLa6","blog-post":"style__blog-post___32rcF","input":"style__input___3yb_A","textarea":"style__textarea___2WAqb","response":"style__response___2NIJP","error":"style__error___3n-vf","textarea-error":"style__textarea-error___1f4Cu"};
+
+/***/ },
+/* 220 */
+/*!********************************!*\
+  !*** ./src/reducers/index.jsx ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _redux = __webpack_require__(/*! redux */ 159);
+	
+	var _blogPosts = __webpack_require__(/*! ./blogPosts.jsx */ 221);
+	
+	var _blogPosts2 = _interopRequireDefault(_blogPosts);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var allReducers = (0, _redux.combineReducers)({
+		posts: _blogPosts2.default
+	});
+	
+	exports.default = allReducers;
+
+/***/ },
+/* 221 */
+/*!************************************!*\
+  !*** ./src/reducers/blogPosts.jsx ***!
+  \************************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  //in future this should be returned from the server db
+	  return [{
+	    id: 1,
+	    title: "MY FIRST BLOG POST",
+	    story: "Hello Post"
+	  }, {
+	    id: 2,
+	    title: "MY SECOND BLOG POST",
+	    story: "This should post at the top of the first blog post"
+	  }, {
+	    id: 3,
+	    title: "MY THIRD BLOG POST",
+	    story: "This post should again display at the top of the list"
+	  }, {
+	    id: 4,
+	    title: "MY FINAL POST",
+	    story: "This post should again display at the top of the list. This should work too."
+	  }, {
+	    id: 5,
+	    title: "MY  POST",
+	    story: "This post should again display. This should work too."
+	  }];
+	};
 
 /***/ }
 /******/ ]);
